@@ -1,15 +1,7 @@
-import axiosStatic, { AxiosInstance } from 'axios';
+import axiosStatic, { AxiosInstance, AxiosRequestConfig } from 'axios';
 import { stringify } from 'qs';
 
-/**
- * axios instance suitably configured for ag-grid HTTP client.
- * set array value for query parameter,
- * - default config axios instance:
- *   - "?a[]=1&a[]=2&a[]=3"
- * - this instance:
- *   - "?a=1&a=2&a=3"
- */
-export const axiosInstance: AxiosInstance = axiosStatic.create({
+export const axiosConfigForAgGrid: AxiosRequestConfig = {
     paramsSerializer: (
         params: {[key: string]: any}
     ): string => {
@@ -22,4 +14,14 @@ export const axiosInstance: AxiosInstance = axiosStatic.create({
         'Expires': -1,
         'Pragma': 'no-cache',
     }
-});
+};
+
+/**
+ * axios instance suitably configured for ag-grid HTTP client.
+ * set array value for query parameter,
+ * - default config axios instance:
+ *   - "?a[]=1&a[]=2&a[]=3"
+ * - this instance:
+ *   - "?a=1&a=2&a=3"
+ */
+export const axiosInstanceForAgGrid: AxiosInstance = axiosStatic.create(axiosConfigForAgGrid);

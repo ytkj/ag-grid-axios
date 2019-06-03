@@ -1,8 +1,8 @@
 import { IDatasource, IGetRowsParams } from 'ag-grid';
-import { AxiosResponse } from 'axios';
+import { AxiosResponse, AxiosInstance } from 'axios';
 
 import { Request, Response} from './dto';
-import { axiosInstance } from './axios-instance';
+import { axiosInstanceForAgGrid } from './axios-instance';
 import { queryParamFromSortFilterModel } from './query-params-from-sort-filter-model';
 
 /**
@@ -11,11 +11,12 @@ import { queryParamFromSortFilterModel } from './query-params-from-sort-filter-m
 export class DataSource<T> implements IDatasource {
 
     constructor(
-        private urlTemplate: string
+        private urlTemplate: string,
+        private axiosInstance: AxiosInstance,
     ) {}
 
     public getRows(
-        getRowsparams: IGetRowsParams
+        getRowsparams: IGetRowsParams,
     ): void {
 
         let url = this.urlTemplate
@@ -27,7 +28,7 @@ export class DataSource<T> implements IDatasource {
             getRowsparams.filterModel,
         );
 
-        axiosInstance.get(url, {params}).then((res: AxiosResponse<Response<T>>): void => {
+        this.axiosInstance.get(url, {params}).then((res: AxiosResponse<Response<T>>): void => {
             getRowsparams.successCallback(res.data.rowsThisBlock, res.data.lastRow);
         });
     }
@@ -39,8 +40,13 @@ export class DataSource<T> implements IDatasource {
      *     '{{startRow}}' and `{{endRow}} will be replaced to
      *     suitable number for current request.
      *     (ex) "/api/grid/start/{{startRow}}/end/{{endRow}}"
+     * @param axiosInstance Axios Instance for HTTP request.
+     *     default to axiosInstanceForAgGrid.
      */
-    public static factory<T>(urlTemplate: string): DataSource<T> {
-        return new DataSource<T>(urlTemplate);
+    public static factory<T>(
+        urlTemplate: string,
+        axiosInstance: AxiosInstance = axiosInstanceForAgGrid
+    ): DataSource<T> {
+        return new DataSource<T>(urlTemplate, axiosInstance);
     }
 }
