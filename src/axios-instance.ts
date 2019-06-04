@@ -1,4 +1,4 @@
-import axiosStatic, { AxiosInstance, AxiosRequestConfig } from 'axios';
+import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 import { stringify } from 'qs';
 
 export const axiosConfigForAgGrid: AxiosRequestConfig = {
@@ -24,4 +24,4 @@ export const axiosConfigForAgGrid: AxiosRequestConfig = {
  * - this instance:
  *   - "?a=1&a=2&a=3"
  */
-export const axiosInstanceForAgGrid: AxiosInstance = axiosStatic.create(axiosConfigForAgGrid);
+export const axiosInstanceForAgGrid: AxiosInstance = axios.create(axiosConfigForAgGrid);
