@@ -1,0 +1,139 @@
+openapi: 3.0.0
+info:
+  title: 'ag-grid-axios'
+  version: 0.0.1
+paths:
+  /any/url/including/{startRow}/and/{endRow}:
+    get:
+      parameters:
+        - name: startRow
+          in: path
+          required: true
+          description: lower bound for requesting row-indexes
+          schema:
+            type: integer
+        - name: endRow
+          in: path
+          required: true
+          description: upper bound for requesting row-indexes
+          schema:
+            type: integer
+        - name: sortColId
+          in: query
+          required: false
+          description: sort target column name (=key in JSON). equal to `SortModel#colId`.
+          schema:
+            type: array
+            items:
+              type: string
+        - name: sortType
+          in: query
+          required: false
+          description: sort order. equal to `SortModel#sort`.
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - asc
+                - desc
+        - name: filterColId
+          in: query
+          required: false
+          description: filter target column name (key in JOSN). equal to `FilterModel#colId`.
+          schema:
+            type: array
+            items:
+              type: string
+        - name: filterType
+          in: query
+          required: false
+          description: >-
+            filter type. equal to `FilterModel#type`.
+            available values depend on `filterCategory`;
+
+            - `filterCategory[i]` is `'text'`
+              - `'equals'`
+              - `'notEqual'`
+              - `'startWith'`
+              - `'endsWith'`
+              - `'contains'`
+              - `'notContains'`
+            - `filterCategory[i]` is `'number'`
+              - `'equlas'`
+              - `'notEqual'`
+              - `'lessThan'`
+              - `'lessThanOrEqual'`
+              - `'greaterThan'`
+              - `'greaterThanOrEqual'`
+              - `'inRange'`
+          schema:
+              type: array
+              items:
+                type: string
+                enum:
+                  - equals
+                  - notEqual
+                  - startWith
+                  - endsWith
+                  - contains
+                  - notContains
+                  - lessThan
+                  - lessThanOrEqual
+                  - greaterThan
+                  - greaterThanOrEqual
+                  - inRange
+        - name: filterWord
+          in: query
+          required: false
+          description: string or number which word as a filter condition.
+          schema:
+            type: array
+            items:
+              oneOf:
+                - type: string
+                - type: number
+        - name: filterTo
+          in: query  
+          required: false
+          description: effective only if `filterType` is `'inRange'`.
+          schema:
+            type: array
+            items:
+              type: number
+        - name: filterCategory
+          in: query
+          required: false
+          description: filter type category.
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - text
+                - number
+      responses:
+        '200':
+          description: >-
+            response has properties dscribed below;
+            
+            - `lastRow`; last row-index in server with current filter condition.
+
+            - `rowsThisBlock`; array. each element is a object, which has column value as properties. 
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  lastRow:
+                    type: integer
+                    example: 1000
+                  rowsThisBlock:
+                    type: array
+                    items:
+                      type: object
+                      example:
+                        column1: foo
+                        column2: bar
+                        column3: true
+                        column4: 10

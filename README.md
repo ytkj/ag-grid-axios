@@ -69,4 +69,4 @@ static factory method to instanciate `DataSource`.
 
 ## REST API
 
-schema of HTTP request made by `DataSource` is described in openapi.yaml.
+schema of HTTP request made by `DataSource` is described in [openapi.yaml](https://github.com/ytkj/ag-grid-axios/blob/master/openapi.yaml).
