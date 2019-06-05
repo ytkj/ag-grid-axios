@@ -69,4 +69,5 @@ static factory method to instanciate `DataSource`.
 
 ## REST API
 
-schema of HTTP request made by `DataSource` is described in [openapi.yaml](https://github.com/ytkj/ag-grid-axios/blob/master/openapi.yaml).
+schema of HTTP request made by `DataSource` is described in [here](https://ytkj.github.io/ag-grid-axios/openapi/swagger-ui/index.html#/default/get_any_url_including__startRow__and__endRow_).
+
