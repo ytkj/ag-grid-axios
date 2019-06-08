@@ -26,25 +26,49 @@ const filterModel: FilterModel = {
         filterTo: 'filterTo2',
         filterType: 'filterType2'
     },            
-}
+};
+const filterModel2: FilterModel = {
+    'filterCol1': {
+        type: 'equals',
+        filter: 'filter1',
+        filterType: 'Category'
+    },
+    'filterCol2': {
+        type: 'inRange',
+        filter: 10,
+        filterTo: 20,
+        filterType: 'number',
+    }
+};
 
 describe('queryParamFromFilterSortModel', function() {
 
     const params = queryParamFromSortFilterModel(sortModel, filterModel);
 
-    it('sortModel', function() {
-        expect(params.sortColId).to.have.ordered.members(['sortCol1', 'sortCol2']);
-        expect(params.sortType).to.have.ordered.members(['asc','desc']);
-    });
+    describe('sortModel', function() {
 
-    it('filterModel', function() {
-        expect(params.filterColId).to.have.ordered.members(['filterCol1', 'filterCol2']);
-        expect(params.filterType).to.have.ordered.members(['equals', 'notEqual']);
-        expect(params.filterWord).to.have.ordered.members(['filter1', 'filter2']);
-        expect(params.filterTo).to.have.ordered.members(['filterTo1', 'filterTo2']);
-        expect(params.filterCategory).to.have.ordered.members(['filterType1', 'filterType2']);
+        it('sortColId and sortType shoul be built.', function() {
+            expect(params.sortColId).to.have.ordered.members(['sortCol1', 'sortCol2']);
+            expect(params.sortType).to.have.ordered.members(['asc','desc']);
+        });    
     });
+    
+    describe('filterModel', function() {
 
+        it('filter* should be built', function() {
+            expect(params.filterColId).to.have.ordered.members(['filterCol1', 'filterCol2']);
+            expect(params.filterType).to.have.ordered.members(['equals', 'notEqual']);
+            expect(params.filterWord).to.have.ordered.members(['filter1', 'filter2']);
+            expect(params.filterTo).to.have.ordered.members(['filterTo1', 'filterTo2']);
+            expect(params.filterCategory).to.have.ordered.members(['filterType1', 'filterType2']);
+        });
+
+        const params2 = queryParamFromSortFilterModel(undefined, filterModel2);
+    
+        it('second inRange condition should be built', function() {
+            expect(params2.filterTo).to.have.ordered.members([undefined, 20]);
+        });
+    });
 });
 
 describe('axiosInstanceForAgGrid', function() {
