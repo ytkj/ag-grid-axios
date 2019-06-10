@@ -1,6 +1,7 @@
 # ag-grid-axios
 
 frontend utilities for AgGrid and Axios HTTP client, powered by TypeScript.
+this is client-side counter part for [sqlalchemy_ag_grid](https://github.com/ytkj/sqlalchemy-ag-grid).
 
 ## Installation
 
