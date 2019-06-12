@@ -1,4 +1,4 @@
-import { IDatasource, IGetRowsParams } from 'ag-grid';
+import { IDatasource, IGetRowsParams } from 'ag-grid-community';
 import { AxiosInstance } from 'axios';
 /**
  * DataSource class for AgGrid 'Infinite Scroll' mode.

@@ -1,4 +1,4 @@
-import { IDatasource, IGetRowsParams } from 'ag-grid';
+import { IDatasource, IGetRowsParams } from 'ag-grid-community';
 import { AxiosResponse, AxiosInstance } from 'axios';
 
 import { Request, Response} from './dto';
