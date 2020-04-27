@@ -1,6 +1,6 @@
 {
     "name": "@ytkj/ag-grid-axios",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "description": "frontend utilities for AgGrid and Axios HTTP client, powered by TypeScript.",
     "keywords": [
         "AgGrid",
